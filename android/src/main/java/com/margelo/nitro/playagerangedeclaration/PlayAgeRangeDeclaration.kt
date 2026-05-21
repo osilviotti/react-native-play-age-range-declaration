@@ -16,7 +16,6 @@ class PlayAgeRangeDeclaration : HybridPlayAgeRangeDeclarationSpec() {
   private fun selectProvider(context: Context): AgeRangeDeclarationProvider = when {
     AmazonGetUserAgeDataProvider.isAvailable(context) -> AmazonGetUserAgeDataProvider(context)
     SamsungGetAgeSignalsProvider.isAvailable(context) -> SamsungGetAgeSignalsProvider(context)
-    GooglePlayAgeSignalsProvider.isAvailable(context) -> GooglePlayAgeSignalsProvider(context)
     else -> GooglePlayAgeSignalsProvider(context)
   }
 
