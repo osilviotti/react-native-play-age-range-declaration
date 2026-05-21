@@ -110,6 +110,8 @@ class AmazonGetUserAgeDataProvider(private val context: Context) : AgeRangeDecla
     companion object {
         private const val TAG = "AmazonGetUserAgeDataProvider"
 
+        const val AMAZONSTORE = "com.amazon.venezia"
+
         // Production authority; use "amzn_test_appstore" for testing
         const val AUTHORITY = "amzn_appstore"
 
@@ -157,11 +159,12 @@ class AmazonGetUserAgeDataProvider(private val context: Context) : AgeRangeDecla
 
         fun isAvailable(context: Context): Boolean {
             return try {
+                val installedByStore = PlayAgeRangeDeclaration.getInstallerPackage(context)
                 val uri = Uri.parse("content://$AUTHORITY")
                 val client = context.contentResolver.acquireContentProviderClient(uri)
                 @Suppress("DEPRECATION")
                 client?.release()
-                client != null
+                installedByStore == AMAZONSTORE && client != null
             } catch (e: Exception) {
                 false
             }

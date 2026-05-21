@@ -107,9 +107,18 @@ class GooglePlayAgeSignalsProvider(private val context: Context) : AgeRangeDecla
     // }
 
     companion object {
+        const val GOOGLEPLAYSTORE = "com.android.vending"
+
         var mockUser: AgeSignalsResult? = null
 
-        fun isAvailable(context: Context): Boolean = true
+        fun isAvailable(context: Context): Boolean {
+            return try {
+                val installedByStore = PlayAgeRangeDeclaration.getInstallerPackage(context)
+                installedByStore == GOOGLEPLAYSTORE
+            } catch (e: Exception) {
+                false
+            }
+        }
 
         fun getManager(context: Context): AgeSignalsManager {
             return mockUser?.let {

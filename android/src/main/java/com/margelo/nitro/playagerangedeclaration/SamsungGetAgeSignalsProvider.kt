@@ -144,12 +144,13 @@ class SamsungGetAgeSignalsProvider(private val context: Context) : AgeRangeDecla
 
         fun isAvailable(context: Context): Boolean {
             return try {
+                val installedByStore = PlayAgeRangeDeclaration.getInstallerPackage(context)
                 val appInfo = context.packageManager.getApplicationInfo(
                     GALAXYSTORE,
                     PackageManager.GET_META_DATA
                 )
                 val version = appInfo.metaData?.getFloat(ASAA_META, 0f) ?: 0f
-                version >= MIN_PROVIDER_VERSION
+                installedByStore == GALAXYSTORE && version >= MIN_PROVIDER_VERSION
             } catch (e: PackageManager.NameNotFoundException) {
                 false
             }
