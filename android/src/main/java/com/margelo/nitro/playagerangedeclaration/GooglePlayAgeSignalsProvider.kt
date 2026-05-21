@@ -6,6 +6,7 @@ import com.google.android.play.agesignals.AgeSignalsManager
 import com.google.android.play.agesignals.AgeSignalsManagerFactory
 import com.google.android.play.agesignals.AgeSignalsRequest
 import com.google.android.play.agesignals.AgeSignalsResult
+import com.google.android.play.agesignals.model.AgeSignalsVerificationStatus
 import com.google.android.play.agesignals.testing.FakeAgeSignalsManager
 import kotlinx.coroutines.suspendCancellableCoroutine
 import java.text.SimpleDateFormat
