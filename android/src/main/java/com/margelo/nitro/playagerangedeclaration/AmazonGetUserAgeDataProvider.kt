@@ -1,6 +1,7 @@
 package com.margelo.nitro.playagerangedeclaration
 
 import android.content.Context
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
@@ -164,7 +165,8 @@ class AmazonGetUserAgeDataProvider(private val context: Context) : AgeRangeDecla
                 val client = context.contentResolver.acquireContentProviderClient(uri)
                 @Suppress("DEPRECATION")
                 client?.release()
-                installedByStore == AMAZONSTORE && client != null
+                val isTV = context.packageManager.hasSystemFeature("amazon.hardware.fire_tv")
+                installedByStore == AMAZONSTORE && client != null && !isTV
             } catch (e: Exception) {
                 false
             }
